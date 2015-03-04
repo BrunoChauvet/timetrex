@@ -3,6 +3,8 @@
 require_once '../init.php';
 // require_once '../connec/init.php';
 
+if(!Maestrano::param('connec.enabled')) { return false; }
+
 $filepath = '../var/_data_sequence';
 $status = false;
 

@@ -5,7 +5,8 @@
     },
     "api": {
         "id": "app-15va",
-        "key": "ed25e446-b643-11e4-a71e-12e3f512a338",
+        "key": "b4558aa2-4923-4502-86c8-a5688aa046ae",
+        "group_id": "timetrex.app.dev.maestrano.io",
         "base": ""
     },
     "sso": {
@@ -17,6 +18,7 @@
         "creation_mode": "virtual"
     },
     "connec": {
+      "enabled": true,
       "host": "http://connec.maestrano.io",
       "base_path": "/api/v2"
     },

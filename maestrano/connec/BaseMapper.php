@@ -162,6 +162,8 @@ abstract class BaseMapper {
   // $pushToConnec: option to notify Connec! of the model update
   // $delete:       option to soft delete the local entity mapping amd ignore further Connec! updates
   public function processLocalUpdate($model, $pushToConnec=true, $delete=false) {
+    $pushToConnec = $pushToConnec && Maestrano::param('connec.enabled');
+
     error_log("process local update entity=$this->connec_entity_name, local_id=" . $this->getId($model) . ", pushToConnec=$pushToConnec, delete=$delete");
     
     if($pushToConnec) {
