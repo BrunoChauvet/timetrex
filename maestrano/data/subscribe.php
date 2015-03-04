@@ -6,7 +6,7 @@ require_once '../init.php';
 try {
   if(!Maestrano::param('connec.enabled')) { return false; }
 
-  $client = new Maestrano_Connec_Client($mno_settings->app_id);
+  $client = new Maestrano_Connec_Client();
 
   $notification = json_decode(file_get_contents('php://input'), false);
   $entity_name = strtoupper(trim($notification->entity));

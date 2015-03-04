@@ -15,7 +15,7 @@ if (file_exists($filepath)) {
   if (empty($timestamp)) { $timestamp = 0; } 
 
   // Fetch updates
-  $client = new Maestrano_Connec_Client('orangehrm.app.dev.maestrano.io');
+  $client = new Maestrano_Connec_Client();
   $msg = $client->get("updates/$timestamp");
   $code = $msg['code'];
   $body = $msg['body'];
