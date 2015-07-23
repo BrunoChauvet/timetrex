@@ -26,7 +26,7 @@ abstract class BaseMapper {
   }
 
   protected function is_set($variable) {
-    return (!is_null($variable) && isset($variable) && !(is_string($variable) && trim($variable)===''));
+    return (!is_null($variable) && isset($variable) && !empty($variable) && !(is_string($variable) && trim($variable)===''));
   }
 
   // Overwrite me!

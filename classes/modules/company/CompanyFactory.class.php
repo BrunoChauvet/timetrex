@@ -3042,8 +3042,9 @@ class CompanyFactory extends Factory {
 				//Debug::Arr($iso_codes, 'ISO Codes: ', __FILE__, __LINE__, __METHOD__, 9);
 				if ( is_array($iso_codes) ) {
 					foreach( $iso_codes as $iso_code ) {
-						$encoding = strtoupper( mb_detect_encoding(TTi18n::getCurrencySymbol( $iso_code ), 'auto') );
-						if ( $encoding == 'UTF-8' ) {
+						//$encoding = strtoupper( mb_detect_encoding(TTi18n::getCurrencySymbol( $iso_code ), 'auto') );
+						$encoding = TTI18n::detectUTF8( TTi18n::getCurrencySymbol( $iso_code ) );
+						if ( $encoding == TRUE ) {
 							Debug::Text($encoding, 'ISO Code: '. $iso_code .' Encoding: '. $encoding, __FILE__, __LINE__, __METHOD__, 9);
 							$retval = 'UTF-8';
 						}
@@ -3396,16 +3397,5 @@ class CompanyFactory extends Factory {
 	function addLog( $log_action ) {
 		return TTLog::addEntry( $this->getId(), $log_action, TTi18n::getText('Company Information'), NULL, $this->getTable(), $this );
 	}
-
-  // Hook:Maestrano
-  function Save($reset_data=TRUE, $force_lookup=FALSE, $push_to_connec=TRUE) {
-    parent::Save(false, $force_lookup);
-
-    $mapper = 'CompanyMapper';
-    if(class_exists($mapper)) {
-      $companyMapper = new $mapper();
-      $companyMapper->processLocalUpdate($this, $push_to_connec);
-    }
-  }
 }
 ?>

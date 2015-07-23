@@ -41,25 +41,6 @@ if ( isset($_GET['disable_db']) && $_GET['disable_db'] == 1 ) {
 require_once('../../includes/global.inc.php');
 forceNoCacheHeaders(); //Send headers to disable caching.
 
-// Hook: Maestrano
-// Load Maestrano
-$authentication = new Authentication();
-if(Maestrano::sso()->isSsoEnabled()) {
-  if (!isset($_SESSION)) session_start();
-  if ($authentication->Check()) {
-    $mnoSession = new Maestrano_Sso_Session($_SESSION);
-    // Check session validity and trigger SSO if not
-    if (!$mnoSession->isValid()) {
-      header('Location: ' . Maestrano::sso()->getInitPath());
-      exit;
-    }
-  } else {
-    // Redirect to login
-    header('Location: ' . Maestrano::sso()->getInitPath());
-    exit;
-  }
-}
-
 //Break out of any domain masking that may exist for security reasons.
 Misc::checkValidDomain();
 
@@ -138,7 +119,7 @@ unset($authentication);
 		<script src="framework/jquery.i18n.js?v=<?php echo APPLICATION_BUILD?>"></script>
 		<script src="framework/backbone/underscore-min.js?v=<?php echo APPLICATION_BUILD?>"></script>
 		<script src="framework/backbone/backbone-min.js?v=<?php echo APPLICATION_BUILD?>"></script>
-		<script src="global/APIGlobal.js.php?v=<?php echo APPLICATION_BUILD?>"></script>
+		<script src="global/APIGlobal.js.php?v=<?php echo APPLICATION_BUILD?><?php if ( isset($disable_database_connection) AND $disable_database_connection == TRUE ) { echo '&disable_db=1'; }?>"></script>
 		<script src="global/Global.js?v=<?php echo APPLICATION_BUILD?>"></script>
 		<script async src="framework/rightclickmenu/rightclickmenu.js?v=<?php echo APPLICATION_BUILD?>"></script>
 		<script async src="framework/rightclickmenu/jquery.ui.position.js?v=<?php echo APPLICATION_BUILD?>"></script>
