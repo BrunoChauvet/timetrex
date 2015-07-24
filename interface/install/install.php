@@ -1,7 +1,7 @@
 <?php
 /*********************************************************************************
  * TimeTrex is a Payroll and Time Management program developed by
- * TimeTrex Software Inc. Copyright (C) 2003 - 2013 TimeTrex Software Inc.
+ * TimeTrex Software Inc. Copyright (C) 2003 - 2014 TimeTrex Software Inc.
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License version 3 as published by
@@ -33,11 +33,7 @@
  * feasible for technical reasons, the Appropriate Legal Notices must display
  * the words "Powered by TimeTrex".
  ********************************************************************************/
-/*
- * $Revision: 11151 $
- * $Id: install.php 11151 2013-10-14 22:00:30Z ipso $
- * $Date: 2013-10-14 15:00:30 -0700 (Mon, 14 Oct 2013) $
- */
+
 
 /*
 
@@ -69,8 +65,8 @@ if ( version_compare( PHP_VERSION, 5, '<') == 1 ) {
 	echo "You are currenting using PHP v<b>". PHP_VERSION ."</b> TimeTrex requires PHP <b>v5</b> or greater!<br><br>\n";
 	$redir = FALSE;
 }
-if ( version_compare( PHP_VERSION, '5.5.99', '>') == 1 ) {
-	echo "You are currenting using PHP v<b>". PHP_VERSION ."</b> TimeTrex requires PHP <b>v5.4.x</b> or earlier!<br><br>\n";
+if ( version_compare( PHP_VERSION, '5.6.99', '>') == 1 ) {
+	echo "You are currenting using PHP v<b>". PHP_VERSION ."</b> TimeTrex requires PHP <b>v5.5.x</b> or earlier!<br><br>\n";
 	$redir = FALSE;
 }
 
@@ -81,14 +77,17 @@ if ( !is_writeable($templates_c_dir) ) {
 }
 
 echo " 6...";
-if ( extension_loaded( 'gettext' ) == FALSE ) {
-	echo "PHP GetText extension is not installed, TimeTrex requires GetText to be installed.<br><br>\n";
-	$redir = FALSE;
-}
+//No longer required as we can use Pear::Translation2 instead if needed. (ie: HHVM)
+//if ( extension_loaded( 'gettext' ) == FALSE ) {
+//	echo "PHP GetText extension is not installed, TimeTrex requires GetText to be installed.<br><br>\n";
+//	$redir = FALSE;
+//}
+
 
 echo " 7...";
 $test_template_c_sub_dir = $templates_c_dir . DIRECTORY_SEPARATOR . uniqid();
 if ( @mkdir( $test_template_c_sub_dir ) !== TRUE ) {
+	//If SELinux is installed, could try: chcon -t httpd_sys_content_t storage
 	echo "Your web server is unable to create directories inside of: <b>". $templates_c_dir ."</b>, please give your webserver write permissions to this directory. For help on this topic click <a href='http://forums.timetrex.com/viewtopic.php?t=66'>here</a>.<br><br>\n";
 	$redir = FALSE;
 }
@@ -104,8 +103,8 @@ echo " 10...";
 if ( $redir == TRUE ) {
 	echo " PASSED!<br><br>\n";
 	echo "Please wait while we automatically redirect you to the <a href='License.php?external_installer=". $external_installer ."'>installer</a>.";
-	echo "<meta http-equiv='refresh' content='0;url=License.php?external_installer=". $external_installer ."'>";
-	//header("Location: License.php?external_installer=". $external_installer ."\n\n");
+	//echo "<meta http-equiv='refresh' content='0;url=License.php?external_installer=". $external_installer ."'>";
+	echo "<meta http-equiv='refresh' content='0;url=../html5/index.php?installer=1&disable_db=1&external_installer=". $external_installer ."#!m=Install&a=license&external_installer=". $external_installer ."'>";
 } else {
 	echo " FAILED!<br><br>\n";
 	echo "For installation support, please join our community <a href=\"http://forums.timetrex.com\" target=\"_blank\">forums</a> or

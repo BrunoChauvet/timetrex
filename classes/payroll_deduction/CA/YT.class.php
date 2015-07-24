@@ -1,7 +1,7 @@
 <?php
 /*********************************************************************************
  * TimeTrex is a Payroll and Time Management program developed by
- * TimeTrex Software Inc. Copyright (C) 2003 - 2013 TimeTrex Software Inc.
+ * TimeTrex Software Inc. Copyright (C) 2003 - 2014 TimeTrex Software Inc.
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License version 3 as published by
@@ -33,11 +33,7 @@
  * feasible for technical reasons, the Appropriate Legal Notices must display
  * the words "Powered by TimeTrex".
  ********************************************************************************/
-/*
- * $Revision: 8371 $
- * $Id: YT.class.php 8371 2012-11-22 21:18:57Z ipso $
- * $Date: 2012-11-22 13:18:57 -0800 (Thu, 22 Nov 2012) $
- */
+
 
 /**
  * @package PayrollDeduction\CA
@@ -57,7 +53,8 @@ class PayrollDeduction_CA_YT extends PayrollDeduction_CA {
 		$T4 = $this->getProvincialBasicTax();
 		$V1 = 0;
 
-		if ( $this->getDate() >= strtotime('01-Jan-2008') ) {
+		//Repealed 01-Jul-2015 retroactively to 01-Jan-2015.
+		if ( $this->getDate() >= strtotime('01-Jan-2008') AND $this->getDate() < strtotime('01-Jul-2015') ) {
 			if ( $T4 <= 6000 ) {
 				$V1 = 0;
 			} elseif ( $T4 > 6000 ) {

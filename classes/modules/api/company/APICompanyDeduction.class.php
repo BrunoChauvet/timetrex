@@ -1,7 +1,7 @@
 <?php
 /*********************************************************************************
  * TimeTrex is a Payroll and Time Management program developed by
- * TimeTrex Software Inc. Copyright (C) 2003 - 2013 TimeTrex Software Inc.
+ * TimeTrex Software Inc. Copyright (C) 2003 - 2014 TimeTrex Software Inc.
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License version 3 as published by
@@ -33,11 +33,7 @@
  * feasible for technical reasons, the Appropriate Legal Notices must display
  * the words "Powered by TimeTrex".
  ********************************************************************************/
-/*
- * $Revision: 2196 $
- * $Id: APICompanyDeduction.class.php 2196 2008-10-14 16:08:54Z ipso $
- * $Date: 2008-10-14 09:08:54 -0700 (Tue, 14 Oct 2008) $
- */
+
 
 /**
  * @package API\Company
@@ -59,8 +55,8 @@ class APICompanyDeduction extends APIFactory {
 	 */
 	function getOptions( $name, $parent = NULL ) {
 		if ( $name == 'columns'
-				AND ( !$this->getPermissionObject()->Check('company_tax_deduction','enabled')
-					OR !( $this->getPermissionObject()->Check('company_tax_deduction','view') OR $this->getPermissionObject()->Check('company_tax_deduction','view_own') OR $this->getPermissionObject()->Check('company_tax_deduction','view_child') ) ) ) {
+				AND ( !$this->getPermissionObject()->Check('company_tax_deduction', 'enabled')
+					OR !( $this->getPermissionObject()->Check('company_tax_deduction', 'view') OR $this->getPermissionObject()->Check('company_tax_deduction', 'view_own') OR $this->getPermissionObject()->Check('company_tax_deduction', 'view_child') ) ) ) {
 			$name = 'list_columns';
 		}
 
@@ -74,7 +70,7 @@ class APICompanyDeduction extends APIFactory {
 	function getCompanyDeductionDefaultData() {
 		$company_obj = $this->getCurrentCompanyObject();
 
-		Debug::Text('Getting company_deduction default data...', __FILE__, __LINE__, __METHOD__,10);
+		Debug::Text('Getting company_deduction default data...', __FILE__, __LINE__, __METHOD__, 10);
 
 		$data = array(
 						'company_id' => $company_obj->getId(),
@@ -93,14 +89,39 @@ class APICompanyDeduction extends APIFactory {
 	 * @return array
 	 */
 	function getCompanyDeduction( $data = NULL, $disable_paging = FALSE ) {
-		if ( !$this->getPermissionObject()->Check('company_tax_deduction','enabled')
-				OR !( $this->getPermissionObject()->Check('company_tax_deduction','view') OR $this->getPermissionObject()->Check('company_tax_deduction','view_own') OR $this->getPermissionObject()->Check('company_tax_deduction','view_child')  ) ) {
+		if ( !$this->getPermissionObject()->Check('company_tax_deduction', 'enabled')
+				OR !( $this->getPermissionObject()->Check('company_tax_deduction', 'view') OR $this->getPermissionObject()->Check('company_tax_deduction', 'view_own') OR $this->getPermissionObject()->Check('company_tax_deduction', 'view_child')  ) ) {
 			//return $this->getPermissionObject()->PermissionDenied();
-			$data['filter_columns'] = $this->handlePermissionFilterColumns( (isset($data['filter_columns'])) ? $data['filter_columns'] : NULL, Misc::trimSortPrefix( $this->getOptions('list_columns') ) );
+
+			if ( !$this->getPermissionObject()->Check('user_tax_deduction', 'enabled')
+					OR !( $this->getPermissionObject()->Check('user_tax_deduction', 'view') OR $this->getPermissionObject()->Check('user_tax_deduction', 'view_own') OR $this->getPermissionObject()->Check('user_tax_deduction', 'view_child')  ) ) {
+				$data['filter_columns'] = $this->handlePermissionFilterColumns( (isset($data['filter_columns'])) ? $data['filter_columns'] : NULL, Misc::trimSortPrefix( $this->getOptions('list_columns') ) );
+			} else {
+				//User has access the user_tax_deduction permissions, restrict columns that are returned so we don't include all users, include/exclude PSA's etc...
+				if ( !isset($data['filter_columns']) ) {
+					$cdf = TTnew( 'CompanyDeductionFactory' );
+					$data['filter_columns'] = Misc::preSetArrayValues( array(), array_keys( $cdf->getVariableToFunctionMap() ), TRUE );
+					unset($cdf, $data['filter_columns']['user'], $data['filter_columns']['include_pay_stub_entry_account'], $data['filter_columns']['exclude_pay_stub_entry_account'], $data['filter_columns']['total_users']);
+				}
+			}
 		}
 		$data = $this->initializeFilterAndPager( $data, $disable_paging );
 
-		$data['filter_data']['permission_children_ids'] = $this->getPermissionObject()->getPermissionChildren( 'company_tax_deduction', 'view' );
+		//Need to pass this into getObjectAsArray() separately to help handle Edit Employee -> Tax tab and is_owner/is_child columns.
+		if ( isset($data['filter_data']['include_user_id']) ) {
+			$include_user_id = $data['filter_data']['include_user_id'];
+		} else {
+			$include_user_id = FALSE;
+		}
+
+		//Help handle cases where a supervisor can access the Edit Employee -> Tax tab, but not the Payroll -> Tax/Deduction list.
+		if ( $this->getPermissionObject()->Check('company_tax_deduction', 'enabled') AND ( $this->getPermissionObject()->Check('company_tax_deduction', 'view') OR $this->getPermissionObject()->Check('company_tax_deduction', 'view_own') OR $this->getPermissionObject()->Check('company_tax_deduction', 'view_child') ) ) {
+			Debug::Text('Using company_tax_deduction permission_children...', __FILE__, __LINE__, __METHOD__, 10);
+			$data['filter_data']['permission_children_ids'] = $this->getPermissionObject()->getPermissionChildren( 'company_tax_deduction', 'view' );
+		} elseif ( $this->getPermissionObject()->Check('user_tax_deduction', 'enabled') AND ( $this->getPermissionObject()->Check('user_tax_deduction', 'view') OR $this->getPermissionObject()->Check('user_tax_deduction', 'view_own') OR $this->getPermissionObject()->Check('user_tax_deduction', 'view_child') ) )  {
+			Debug::Text('Using user_tax_deduction permission_children...', __FILE__, __LINE__, __METHOD__, 10);
+			$data['filter_data']['permission_children_ids'] = $this->getPermissionObject()->getPermissionChildren( 'user_tax_deduction', 'view' );
+		}
 
 		$blf = TTnew( 'CompanyDeductionListFactory' );
 		$blf->getAPISearchByCompanyIdAndArrayCriteria( $this->getCurrentCompanyObject()->getId(), $data['filter_data'], $data['filter_items_per_page'], $data['filter_page'], NULL, $data['filter_sort'] );
@@ -111,13 +132,14 @@ class APICompanyDeduction extends APIFactory {
 			$this->setPagerObject( $blf );
 
 			foreach( $blf as $b_obj ) {
-				$retarr[] = $b_obj->getObjectAsArray( $data['filter_columns'] );
+				$retarr[] = $b_obj->getObjectAsArray( $data['filter_columns'], $data['filter_data']['permission_children_ids'], $include_user_id );
 
 				$this->getProgressBarObject()->set( $this->getAMFMessageID(), $blf->getCurrentRow() );
 			}
 
 			$this->getProgressBarObject()->stop( $this->getAMFMessageID() );
 
+			Debug::Arr($retarr, 'zzz9Record Count: ', __FILE__, __LINE__, __METHOD__, 10);
 			return $this->returnHandler( $retarr );
 		}
 
@@ -154,9 +176,9 @@ class APICompanyDeduction extends APIFactory {
 			return $this->returnHandler( FALSE );
 		}
 
-		if ( !$this->getPermissionObject()->Check('company_tax_deduction','enabled')
-				OR !( $this->getPermissionObject()->Check('company_tax_deduction','edit') OR $this->getPermissionObject()->Check('company_tax_deduction','edit_own') OR $this->getPermissionObject()->Check('company_tax_deduction','edit_child') OR $this->getPermissionObject()->Check('company_tax_deduction','add') ) ) {
-			return  $this->getPermissionObject()->PermissionDenied();
+		if ( !$this->getPermissionObject()->Check('company_tax_deduction', 'enabled')
+				OR !( $this->getPermissionObject()->Check('company_tax_deduction', 'edit') OR $this->getPermissionObject()->Check('company_tax_deduction', 'edit_own') OR $this->getPermissionObject()->Check('company_tax_deduction', 'edit_child') OR $this->getPermissionObject()->Check('company_tax_deduction', 'add') ) ) {
+			return	$this->getPermissionObject()->PermissionDenied();
 		}
 
 		if ( $validate_only == TRUE ) {
@@ -182,11 +204,11 @@ class APICompanyDeduction extends APIFactory {
 					if ( $lf->getRecordCount() == 1 ) {
 						//Object exists, check edit permissions
 						if (
-							  $validate_only == TRUE
-							  OR
+							$validate_only == TRUE
+							OR
 								(
-								$this->getPermissionObject()->Check('company_tax_deduction','edit')
-									OR ( $this->getPermissionObject()->Check('company_tax_deduction','edit_own') AND $this->getPermissionObject()->isOwner( $lf->getCurrent()->getCreatedBy(), $lf->getCurrent()->getID() ) === TRUE )
+								$this->getPermissionObject()->Check('company_tax_deduction', 'edit')
+									OR ( $this->getPermissionObject()->Check('company_tax_deduction', 'edit_own') AND $this->getPermissionObject()->isOwner( $lf->getCurrent()->getCreatedBy(), $lf->getCurrent()->getID() ) === TRUE )
 								) ) {
 
 							Debug::Text('Row Exists, getting current data: ', $row['id'], __FILE__, __LINE__, __METHOD__, 10);
@@ -201,7 +223,7 @@ class APICompanyDeduction extends APIFactory {
 					}
 				} else {
 					//Adding new object, check ADD permissions.
-					$primary_validator->isTrue( 'permission', $this->getPermissionObject()->Check('company_tax_deduction','add'), TTi18n::gettext('Add permission denied') );
+					$primary_validator->isTrue( 'permission', $this->getPermissionObject()->Check('company_tax_deduction', 'add'), TTi18n::gettext('Add permission denied') );
 
 					//Because this class has sub-classes that depend on it, when adding a new record we need to make sure the ID is set first,
 					//so the sub-classes can depend on it. We also need to call Save( TRUE, TRUE ) to force a lookup on isNew()
@@ -213,10 +235,10 @@ class APICompanyDeduction extends APIFactory {
 				if ( $is_valid == TRUE ) { //Check to see if all permission checks passed before trying to save data.
 					Debug::Text('Setting object data...', __FILE__, __LINE__, __METHOD__, 10);
 
-					$lf->setObjectFromArray( $row );
-
 					//Force Company ID to current company.
-					$lf->setCompany( $this->getCurrentCompanyObject()->getId() );
+					$row['company_id'] = $this->getCurrentCompanyObject()->getId();
+
+					$lf->setObjectFromArray( $row );
 
 					$is_valid = $lf->isValid();
 					if ( $is_valid == TRUE ) {
@@ -280,16 +302,16 @@ class APICompanyDeduction extends APIFactory {
 			return $this->returnHandler( FALSE );
 		}
 
-		if ( !$this->getPermissionObject()->Check('company_tax_deduction','enabled')
-				OR !( $this->getPermissionObject()->Check('company_tax_deduction','delete') OR $this->getPermissionObject()->Check('company_tax_deduction','delete_own') OR $this->getPermissionObject()->Check('company_tax_deduction','delete_child') ) ) {
-			return  $this->getPermissionObject()->PermissionDenied();
+		if ( !$this->getPermissionObject()->Check('company_tax_deduction', 'enabled')
+				OR !( $this->getPermissionObject()->Check('company_tax_deduction', 'delete') OR $this->getPermissionObject()->Check('company_tax_deduction', 'delete_own') OR $this->getPermissionObject()->Check('company_tax_deduction', 'delete_child') ) ) {
+			return	$this->getPermissionObject()->PermissionDenied();
 		}
 
 		Debug::Text('Received data for: '. count($data) .' CompanyDeductions', __FILE__, __LINE__, __METHOD__, 10);
 		Debug::Arr($data, 'Data: ', __FILE__, __LINE__, __METHOD__, 10);
 
 		$total_records = count($data);
-        $validator_stats = array('total_records' => $total_records, 'valid_records' => 0 );
+		$validator_stats = array('total_records' => $total_records, 'valid_records' => 0 );
 		if ( is_array($data) ) {
 			$this->getProgressBarObject()->start( $this->getAMFMessageID(), $total_records );
 
@@ -303,8 +325,8 @@ class APICompanyDeduction extends APIFactory {
 					$lf->getByIdAndCompanyId( $id, $this->getCurrentCompanyObject()->getId() );
 					if ( $lf->getRecordCount() == 1 ) {
 						//Object exists, check edit permissions
-						if ( $this->getPermissionObject()->Check('company_tax_deduction','delete')
-								OR ( $this->getPermissionObject()->Check('company_tax_deduction','delete_own') AND $this->getPermissionObject()->isOwner( $lf->getCurrent()->getCreatedBy(), $lf->getCurrent()->getID() ) === TRUE ) ) {
+						if ( $this->getPermissionObject()->Check('company_tax_deduction', 'delete')
+								OR ( $this->getPermissionObject()->Check('company_tax_deduction', 'delete_own') AND $this->getPermissionObject()->isOwner( $lf->getCurrent()->getCreatedBy(), $lf->getCurrent()->getID() ) === TRUE ) ) {
 							Debug::Text('Record Exists, deleting record: ', $id, __FILE__, __LINE__, __METHOD__, 10);
 							$lf = $lf->getCurrent();
 						} else {

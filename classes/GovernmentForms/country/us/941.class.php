@@ -1,7 +1,7 @@
 <?php
 /*********************************************************************************
  * TimeTrex is a Payroll and Time Management program developed by
- * TimeTrex Software Inc. Copyright (C) 2003 - 2013 TimeTrex Software Inc.
+ * TimeTrex Software Inc. Copyright (C) 2003 - 2014 TimeTrex Software Inc.
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License version 3 as published by
@@ -33,11 +33,7 @@
  * feasible for technical reasons, the Appropriate Legal Notices must display
  * the words "Powered by TimeTrex".
  ********************************************************************************/
-/*
- * $Revision: 2286 $
- * $Id: CA.class.php 2286 2008-12-12 23:12:41Z ipso $
- * $Date: 2008-12-12 15:12:41 -0800 (Fri, 12 Dec 2008) $
- */
+
 
 include_once( 'US.class.php' );
 
@@ -45,9 +41,9 @@ include_once( 'US.class.php' );
  * @package GovernmentForms
  */
 class GovernmentForms_US_941 extends GovernmentForms_US {
-    
-    public $xml_schema = '94x/94x/IRS941.xsd';
-    
+
+	public $xml_schema = '94x/94x/IRS941.xsd';
+
 	public $pdf_template = '941.pdf';
 	//public $template_offsets = array( -2, +35 ); //x, y
 	public $page_offsets = array( 0, -35 ); //x, y
@@ -140,11 +136,11 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 									),
 
 								array(
-										'value' => '('. $this->year .')', //Bottom right of first page.
+										'value' => '(Rev. '. $this->year .')', //Bottom right of first page.
 										'on_background' => TRUE,
 										'coordinates' => array(
 															'x' => 533,
-															'y' => 792,
+															'y' => 768,
 															'h' => 11,
 															'w' => 45,
 															'halign' => 'C',
@@ -160,70 +156,70 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'template_page' => 1,
 												'function' => 'drawChars', //custom drawing function.
 												'coordinates' => array(
-																	   array( 'type' => 'static', //static or relative
+																	array( 'type' => 'static', //static or relative
 																		'x' => 151,
 																		'y' => 102,
 																		'h' => 17,
 																		'w' => 19,
 																		'halign' => 'C',
 																		),
-																	   array(
+																	array(
 																		'x' => 178,
 																		'y' => 102,
 																		'h' => 17,
 																		'w' => 19,
 																		'halign' => 'C',
 																		),
-																	   array(
+																	array(
 																		'x' => 216,
 																		'y' => 102,
 																		'h' => 17,
 																		'w' => 19,
 																		'halign' => 'C',
 																		),
-																	   array(
+																	array(
 																		'x' => 242,
 																		'y' => 102,
 																		'h' => 17,
 																		'w' => 19,
 																		'halign' => 'C',
 																		),
-																	   array(
+																	array(
 																		'x' => 267,
 																		'y' => 102,
 																		'h' => 17,
 																		'w' => 19,
 																		'halign' => 'C',
 																		),
-																	   array(
+																	array(
 																		'x' => 292,
 																		'y' => 102,
 																		'h' => 17,
 																		'w' => 19,
 																		'halign' => 'C',
 																		),
-																	   array(
+																	array(
 																		'x' => 318,
 																		'y' => 102,
 																		'h' => 17,
 																		'w' => 19,
 																		'halign' => 'C',
 																		),
-																	   array(
+																	array(
 																		'x' => 343,
 																		'y' => 102,
 																		'h' => 17,
 																		'w' => 19,
 																		'halign' => 'C',
 																		),
-																	   array(
+																	array(
 																		'x' => 369,
 																		'y' => 102,
 																		'h' => 17,
 																		'w' => 19,
 																		'halign' => 'C',
 																		),
-																	  ),
+																	),
 												'font' => array (
 																		'size' => 12,
 																		'type' => 'B' )
@@ -270,7 +266,7 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'template_page' => 1,
 												'coordinates' => array(
 																		'x' => 83,
-																		'y' => 199,
+																		'y' => 202,
 																		'h' => 18,
 																		'w' => 182,
 																		'halign' => 'L',
@@ -281,7 +277,7 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'template_page' => 1,
 												'coordinates' => array(
 																		'x' => 273,
-																		'y' => 199,
+																		'y' => 202,
 																		'h' => 18,
 																		'w' => 35,
 																		'halign' => 'C',
@@ -292,7 +288,7 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'template_page' => 1,
 												'coordinates' => array(
 																		'x' => 317,
-																		'y' => 199,
+																		'y' => 202,
 																		'h' => 18,
 																		'w' => 70,
 																		'halign' => 'C',
@@ -333,7 +329,7 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 																			'w' => 11,
 																			'halign' => 'C',
 																			),
-																	  ),
+																	),
 												'font' => array (
 																		'size' => 10,
 																		'type' => 'B' )
@@ -344,7 +340,7 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'template_page' => 1,
 												'coordinates' => array(
 																		'x' => 447, //431
-																		'y' => 264, //257
+																		'y' => 305, //264 = 41diff
 																		'h' => 15,
 																		'w' => 128,
 																		'halign' => 'C',
@@ -358,14 +354,14 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 447,
-																		'y' => 289,
+																		'y' => 330,
 																		'h' => 14,
 																		'w' => 99,
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 549,
-																		'y' => 289,
+																		'y' => 330,
 																		'h' => 14,
 																		'w' => 26,
 																		'halign' => 'C',
@@ -379,14 +375,14 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 447,
-																		'y' => 313,
+																		'y' => 354,
 																		'h' => 14,
 																		'w' => 99,
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 549,
-																		'y' => 313,
+																		'y' => 354,
 																		'h' => 14,
 																		'w' => 26,
 																		'halign' => 'C',
@@ -400,7 +396,7 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 447,
-																		'y' => 337,
+																		'y' => 378,
 																		'h' => 6,
 																		'w' => 10,
 																		'halign' => 'C',
@@ -417,14 +413,14 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 217, //190
-																		'y' => 371, //351
+																		'y' => 413, //351
 																		'h' => 14,
 																		'w' => 65, //75
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 287,
-																		'y' => 371,
+																		'y' => 413,
 																		'h' => 14,
 																		'w' => 20,
 																		'halign' => 'C',
@@ -438,14 +434,14 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 217,
-																		'y' => 390,
+																		'y' => 432,
 																		'h' => 14,
 																		'w' => 65,
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 287,
-																		'y' => 390,
+																		'y' => 432,
 																		'h' => 14,
 																		'w' => 20,
 																		'halign' => 'C',
@@ -459,14 +455,14 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 217,
-																		'y' => 408,
+																		'y' => 450,
 																		'h' => 14,
 																		'w' => 65,
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 287,
-																		'y' => 408,
+																		'y' => 450,
 																		'h' => 14,
 																		'w' => 20,
 																		'halign' => 'C',
@@ -480,14 +476,14 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 217,
-																		'y' => 432,
+																		'y' => 474,
 																		'h' => 14,
 																		'w' => 65,
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 287,
-																		'y' => 432,
+																		'y' => 474,
 																		'h' => 14,
 																		'w' => 20,
 																		'halign' => 'C',
@@ -502,14 +498,14 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 352,
-																		'y' => 371,
+																		'y' => 413,
 																		'h' => 14,
 																		'w' => 70,
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 425,
-																		'y' => 371,
+																		'y' => 413,
 																		'h' => 14,
 																		'w' => 19,
 																		'halign' => 'C',
@@ -523,14 +519,14 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 352,
-																		'y' => 390,
+																		'y' => 432,
 																		'h' => 14,
 																		'w' => 70,
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 425,
-																		'y' => 390,
+																		'y' => 432,
 																		'h' => 14,
 																		'w' => 19,
 																		'halign' => 'C',
@@ -544,14 +540,14 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 352,
-																		'y' => 408,
+																		'y' => 450,
 																		'h' => 14,
 																		'w' => 70,
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 425,
-																		'y' => 408,
+																		'y' => 450,
 																		'h' => 14,
 																		'w' => 19,
 																		'halign' => 'C',
@@ -565,14 +561,14 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 352,
-																		'y' => 432,
+																		'y' => 474,
 																		'h' => 14,
 																		'w' => 70,
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 425,
-																		'y' => 432,
+																		'y' => 474,
 																		'h' => 14,
 																		'w' => 19,
 																		'halign' => 'C',
@@ -586,14 +582,14 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 446,
-																		'y' => 456,
+																		'y' => 498,
 																		'h' => 14,
 																		'w' => 99,
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 549,
-																		'y' => 456,
+																		'y' => 498,
 																		'h' => 14,
 																		'w' => 26,
 																		'halign' => 'C',
@@ -607,14 +603,14 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 446,
-																		'y' => 479,
+																		'y' => 521,
 																		'h' => 14,
 																		'w' => 99,
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 549,
-																		'y' => 479,
+																		'y' => 521,
 																		'h' => 14,
 																		'w' => 26,
 																		'halign' => 'C',
@@ -628,14 +624,14 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 446,
-																		'y' => 504,
+																		'y' => 546,
 																		'h' => 14,
 																		'w' => 99,
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 549,
-																		'y' => 504,
+																		'y' => 546,
 																		'h' => 14,
 																		'w' => 26,
 																		'halign' => 'C',
@@ -649,14 +645,14 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 446,
-																		'y' => 528,
+																		'y' => 570,
 																		'h' => 14,
 																		'w' => 99,
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 549,
-																		'y' => 528,
+																		'y' => 570,
 																		'h' => 14,
 																		'w' => 26,
 																		'halign' => 'C',
@@ -670,14 +666,14 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 446,
-																		'y' => 551,
+																		'y' => 593,
 																		'h' => 14,
 																		'w' => 99,
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 549,
-																		'y' => 551,
+																		'y' => 593,
 																		'h' => 14,
 																		'w' => 26,
 																		'halign' => 'C',
@@ -691,14 +687,14 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 446,
-																		'y' => 577,
+																		'y' => 619,
 																		'h' => 14,
 																		'w' => 99,
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 549,
-																		'y' => 577,
+																		'y' => 619,
 																		'h' => 14,
 																		'w' => 26,
 																		'halign' => 'C',
@@ -713,14 +709,14 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 446,
-																		'y' => 600,
+																		'y' => 642,
 																		'h' => 14,
 																		'w' => 99,
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 549,
-																		'y' => 600,
+																		'y' => 642,
 																		'h' => 14,
 																		'w' => 26,
 																		'halign' => 'C',
@@ -734,124 +730,70 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 												'coordinates' => array(
 																	array(
 																		'x' => 446,
-																		'y' => 636,
+																		'y' => 683,
 																		'h' => 14,
 																		'w' => 99,
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 549,
-																		'y' => 636,
+																		'y' => 683,
 																		'h' => 14,
 																		'w' => 26,
 																		'halign' => 'C',
 																		),
 																	),
 											),
-								'l12a' => array(
+								'l12' => array(
 												'page' => 1,
 												'template_page' => 1,
-												'function' => 'drawSplitDecimalFloat',
+												'function' => array('calcL12', 'drawSplitDecimalFloat'),
 												'coordinates' => array(
 																	array(
 																		'x' => 446,
-																		'y' => 660,
+																		'y' => 708,
 																		'h' => 14,
 																		'w' => 99,
 																		'halign' => 'R',
 																		),
 																	array(
 																		'x' => 549,
-																		'y' => 660,
+																		'y' => 708,
 																		'h' => 14,
 																		'w' => 26,
 																		'halign' => 'C',
 																		),
 																	),
 											),
-								'l12b' => array(
-												'page' => 1,
-												'template_page' => 1,
-												'coordinates' => array(
-																	'x' => 350,
-																	'y' => 684,
-																	'h' => 14,
-																	'w' => 76,
-																	'halign' => 'C',
-																	),
-											),
-
 								'l13' => array(
 												'page' => 1,
 												'template_page' => 1,
 												'function' => array('calcL13', 'drawSplitDecimalFloat'),
 												'coordinates' => array(
 																	array(
-																		'x' => 446,
-																		'y' => 707,
-																		'h' => 14,
-																		'w' => 99,
-																		'halign' => 'R',
-																		),
-																	array(
-																		'x' => 549,
-																		'y' => 707,
-																		'h' => 14,
-																		'w' => 26,
-																		'halign' => 'C',
-																		),
-																	),
-											),
-								'l14' => array(
-												'page' => 1,
-												'template_page' => 1,
-												'function' => array('calcL14', 'drawSplitDecimalFloat'),
-												'coordinates' => array(
-																	array(
-																		'x' => 446,
+																		'x' => 300,
 																		'y' => 732,
 																		'h' => 14,
-																		'w' => 99,
+																		'w' => 70,
 																		'halign' => 'R',
 																		),
 																	array(
-																		'x' => 549,
+																		'x' => 377,
 																		'y' => 732,
-																		'h' => 14,
-																		'w' => 26,
-																		'halign' => 'C',
-																		),
-																	),
-											),
-								'l15' => array(
-												'page' => 1,
-												'template_page' => 1,
-												'function' => array('calcL15', 'drawSplitDecimalFloat'),
-												'coordinates' => array(
-																	array(
-																		'x' => 295,
-																		'y' => 755,
-																		'h' => 14,
-																		'w' => 75,
-																		'halign' => 'R',
-																		),
-																	array(
-																		'x' => 375,
-																		'y' => 755,
 																		'h' => 14,
 																		'w' => 19,
 																		'halign' => 'C',
 																		),
 																	),
 											),
-								'l15a' => array(
+								'l13a' => array(
 												'page' => 1,
 												'template_page' => 1,
-												'function' => array('filterL15A', 'drawCheckbox'),
+												'function' => array('filterL13A', 'drawCheckbox'),
 												'coordinates' => array(
 																	array(
 																		'x' => 446,
-																		'y' => 758,
+																		'y' => 733,
 																		'h' => 6,
 																		'w' => 10,
 																		'halign' => 'C',
@@ -861,14 +803,14 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 																		'size' => 8,
 																		'type' => 'B' )
 											),
-								'l15b' => array(
+								'l13b' => array(
 												'page' => 1,
 												'template_page' => 1,
-												'function' => array('filterL15B', 'drawCheckbox'),
+												'function' => array('filterL13B', 'drawCheckbox'),
 												'coordinates' => array(
 																	array(
 																		'x' => 518,
-																		'y' => 758,
+																		'y' => 733,
 																		'h' => 6,
 																		'w' => 10,
 																		'halign' => 'C',
@@ -878,7 +820,6 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 																		'size' => 8,
 																		'type' => 'B' )
 											),
-
 								//Initialize Page 2
 								array(
 												'page' => 2,
@@ -903,7 +844,7 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 																		),
 											),
 								array(
-										'value' => '('. $this->year .')',
+										'value' => '(Rev. '. $this->year .')',
 										'on_background' => TRUE,
 										'coordinates' => array(
 															'x' => 534,
@@ -1180,13 +1121,13 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 																			'w' => 11,
 																			'halign' => 'C',
 																			),
-																	  ),
+																	),
 												'font' => array (
 																		'size' => 10,
 																		'type' => 'B' )
 											),
 
-							  );
+							);
 
 		if ( isset($template_schema[$name]) ) {
 			return $name;
@@ -1205,15 +1146,15 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 		return FALSE;
 	}
 
-	function filterL15A( $value, $schema ) {
-		if ( $this->l15 > 0 ) {
+	function filterL13A( $value, $schema ) {
+		if ( $this->l13 > 0 ) {
 			return $value;
 		}
 
 		return FALSE;
 	}
-	function filterL15B( $value, $schema ) {
-		if ( $this->l15 > 0 ) {
+	function filterL13B( $value, $schema ) {
+		if ( $this->l13 > 0 ) {
 			return $value;
 		}
 
@@ -1245,24 +1186,24 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 	}
 
 	function calcL5A2( $value = NULL, $schema = NULL ) {
-		$this->l5a2 = $this->MoneyFormat( $this->l5a * $this->social_security_rate, FALSE );
+		$this->l5a2 = $this->MoneyFormat( ( $this->l5a * $this->social_security_rate ), FALSE );
 		return $this->l5a2;
 	}
 	function calcL5B2( $value = NULL, $schema = NULL ) {
-		$this->l5b2 = $this->MoneyFormat( $this->l5b * $this->social_security_rate, FALSE );
+		$this->l5b2 = $this->MoneyFormat( ( $this->l5b * $this->social_security_rate ), FALSE );
 		return $this->l5b2;
 	}
 	function calcL5C2( $value = NULL, $schema = NULL ) {
-		$this->l5c2 = $this->MoneyFormat( $this->l5c * $this->medicare_rate, FALSE );
+		$this->l5c2 = $this->MoneyFormat( ( $this->l5c * $this->medicare_rate ), FALSE );
 		return $this->l5c2;
 	}
 	function calcL5D2( $value = NULL, $schema = NULL ) {
-		$this->l5d2 = $this->MoneyFormat( $this->l5d * $this->medicare_additional_rate, FALSE );
+		$this->l5d2 = $this->MoneyFormat( ( $this->l5d * $this->medicare_additional_rate ), FALSE );
 		return $this->l5d2;
 	}
 
 	function calcL5E( $value = NULL, $schema = NULL ) {
-		$this->l5e = $this->l5a2 + $this->l5b2 + $this->l5c2 + $this->l5d2;
+		$this->l5e = ( $this->l5a2 + $this->l5b2 + $this->l5c2 + $this->l5d2 );
 		
 		if ( $this->l5e > 0 ) {
 			$this->l4 = TRUE;
@@ -1274,7 +1215,7 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 	}
 
 	function calcL6( $value = NULL, $schema = NULL ) {
-		$this->l6 = $this->l3 + $this->l5e + $this->l5f;
+		$this->l6 = ( $this->l3 + $this->l5e + $this->l5f );
 		return $this->l6;
 	}
 
@@ -1288,28 +1229,25 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 	//}
 
 	function calcL10( $value, $schema ) {
-		$this->l10 = $this->l6 + $this->l7 + $this->l8 + $this->l9;
+		$this->l10 = ( $this->l6 + $this->l7 + $this->l8 + $this->l9 );
 		return $this->l10;
 	}
-	function calcL13( $value, $schema ) {
-		$this->l13 = $this->l11 + $this->l12a;
-		return $this->l13;
-	}
-	function calcL14( $value, $schema ) {
-		if ( $this->l10 > $this->l13 ) {
-			$this->l14 = $this->l10 - $this->l13;
-			return $this->l14;
+
+	function calcL12( $value, $schema ) {
+		if ( $this->l10 > $this->l11 ) {
+			$this->l12 = ( $this->l10 - $this->l11 );
+			return $this->l12;
 		}
 	}
-	function calcL15( $value, $schema ) {
-		if ( $this->l13 > $this->l10 ) {
-			$this->l15 = $this->l13 - $this->l10;
-			return $this->l15;
+	function calcL13( $value, $schema ) {
+		if ( $this->l11 > $this->l10 ) {
+			$this->l13 = ( $this->l11 - $this->l10 );
+			return $this->l13;
 		}
 	}
 
 	function calcL16MonthTotal( $value, $schema ) {
-		$this->l16_month_total = $this->l16_month1 + $this->l16_month2 + $this->l16_month3;
+		$this->l16_month_total = ( $this->l16_month1 + $this->l16_month2 + $this->l16_month3 );
 		return $this->l16_month_total;
 	}
 
@@ -1325,7 +1263,7 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 			$this->template_index[3] = $pdf->ImportPage(3);
 		}
 
-		if ( $this->year == ''  ) {
+		if ( $this->year == '' ) {
 			$this->year = $this->getYear();
 		}
 
@@ -1342,123 +1280,120 @@ class GovernmentForms_US_941 extends GovernmentForms_US {
 
 		return TRUE;
 	}
-    
-    
-    function _outputXML() {        
-                
-        if ( is_object( $this->getXMLObject() ) ) {
+
+
+	function _outputXML() {
+
+		if ( is_object( $this->getXMLObject() ) ) {
 			$xml = $this->getXMLObject();
 		} else {
 			return FALSE; //No XML object to append too. Needs return940 form first.
 		}
-        
-        $xml->IRS941->addAttribute('documentId', 0); //  Must be unique within the return.
-        if ( isset( $this->l1 ) ) {
-            $xml->IRS941->addChild('NumberOfEmployees', $this->l1);            
-        }
-        
-        if ( isset( $this->l2 ) ) {
-            $xml->IRS941->addChild('TotalWages', $this->l2);
-        }
-        if ( isset( $this->l3 ) ) {
-            $xml->IRS941->addChild('TotalIncomeTaxWithheld', $this->l3);
-        }
-        
-        if ( isset( $this->l5a ) ) {
-            $xml->IRS941->addChild('TaxableSocialSecurityWages', $this->l5a);
-            if ( $this->calcL5A2(NULL,NULL) > 0 ) {
-                $xml->IRS941->addChild('TaxOnSocialSecurityWages', $this->calcL5A2(NULL,NULL));
-            }
-        }
-        if ( isset( $this->l5b ) ) {
-            $xml->IRS941->addChild('TaxableSocialSecurityTips', $this->l5b);
-            if ( $this->calcL5B2(NULL,NULL) > 0 ) {
-                $xml->IRS941->addChild('TaxOnSocialSecurityTips', $this->calcL5B2(NULL,NULL));
-            }
-            
-        }
-        if ( isset( $this->l5c ) ) {
-            $xml->IRS941->addChild('TaxableMedicareWagesTips', $this->l5c);
-            if ( $this->calcL5C2(NULL,NULL) > 0 ) {
-                $xml->IRS941->addChild('TaxOnMedicareWagesTips',$this->calcL5C2(NULL,NULL) );
-            }
-        }
-        if ( $this->calcL5D(NULL,NULL) > 0 ) {
-            $xml->IRS941->addChild('TotalSocialSecurityMedTaxes', $this->calcL5D(NULL,NULL) );
-            $xml->IRS941->addChild('WagesNotSubjToSSMedicareTaxes', 'X');
-        }   
-        if ( $this->calcL6E(NULL,NULL) > 0 ) {
-            $xml->IRS941->addChild('TotalTaxesBeforeAdjustmentsAmt',$this->calcL6E(NULL,NULL) );
-        }
-        if ( isset( $this->l7 ) ) {
-            $xml->IRS941->addChild('FractionsOfCentsAdjustment',$this->l7 );
-        }
-        if ( isset( $this->l9 ) ) {
-            $xml->IRS941->addChild('TipsGroupTermLifeInsAdjAmount',$this->l9 );
-        }
-        if ( $this->calcL10(NULL,NULL) > 0 ) {
-            $xml->IRS941->addChild('TotalTax',$this->calcL10(NULL,NULL));
-        } else {
-            $xml->IRS941->addChild('TotalTax',0.00);
-        }    
-        
-        $xml->IRS941->addChild('TotalDepositsOverpaymentForQtr',$this->l11); 
-        if ( $this->calcL13(NULL,NULL) > 0 ) {
-            $xml->IRS941->addChild('PaymentCreditTotal',$this->calcL13(NULL,NULL));
-        } else {
-            $xml->IRS941->addChild('PaymentCreditTotal',0.00);
-        }
-        
-        if ( $this->calcL14(NULL,NULL) > 0 ) {
-            
-            $xml->IRS941->addChild('BalanceDue',$this->calcL14(NULL,NULL));
-        } else {
-            $xml->IRS941->addChild('Overpayment');
-            if ( $this->calcL15(NULL,NULL) > 0 ) {
-                $xml->IRS941->Overpayment->addChild('Amount',$this->calcL15(NULL,NULL) );
-                $xml->IRS941->Overpayment->addChild('CreditElect','X');
-            } else {
-                $xml->IRS941->Overpayment->addChild('Amount',0.00 );
-            }
-            
-        }
-        
-        if ( isset( $this->l16 ) ) {
-           $xml->IRS941->addChild('DepositStateCode',$this->l16 ); 
-        }
-        
-        if ( is_array( $this->filterL16(NULL, NULL) ) ) {
-            $L16_ARR = $this->filterL16(NULL, NULL);
-            foreach( $L16_ARR as $l16 ) {
-                switch( $l16 ) {
-                    case 'a':
-                        $xml->IRS941->addChild('LessThan2500', 'X');
-                        break;
-                    case 'b':
-                        $xml->IRS941->addChild('MonthlyDepositorGroup');
-                        $xml->IRS941->MonthlyDepositorGroup->addChild('MonthlyScheduleDepositor', 'X');
-                        if ( isset( $this->l16_month1 ) ) {
-                            $xml->IRS941->MonthlyDepositorGroup->addChild('Month1Liability', $this->l16_month1);
-                        }
-                        if ( isset( $this->l16_month2 ) ){
-                            $xml->IRS941->MonthlyDepositorGroup->addChild('Month2Liability',$this->l16_month2 );
-                        }
-                        if ( isset( $this->l16_month3 ) ){
-                            $xml->IRS941->MonthlyDepositorGroup->addChild('Month3Liability',$this->l16_month3 );
-                        }                      
-                        if ( $this->calcL16MonthTotal(NULL,NULL) > 0 ) {
-                            $xml->IRS941->MonthlyDepositorGroup->addChild('TotalQuarterLiability',$this->calcL16MonthTotal(NULL,NULL) );
-                        }
-                        
-                        break;
-                    case 'c':
-                        $xml->IRS941->addChild('SemiweeklyScheduleDepositor', 'X');
-                        break;
-                }
-            }
-        }
-        
-    }
-    
+
+		$xml->IRS941->addAttribute('documentId', 0); //  Must be unique within the return.
+		if ( isset( $this->l1 ) ) {
+			$xml->IRS941->addChild('NumberOfEmployees', $this->l1);
+		}
+
+		if ( isset( $this->l2 ) ) {
+			$xml->IRS941->addChild('TotalWages', $this->l2);
+		}
+		if ( isset( $this->l3 ) ) {
+			$xml->IRS941->addChild('TotalIncomeTaxWithheld', $this->l3);
+		}
+
+		if ( isset( $this->l5a ) ) {
+			$xml->IRS941->addChild('TaxableSocialSecurityWages', $this->l5a);
+			if ( $this->calcL5A2(NULL, NULL) > 0 ) {
+				$xml->IRS941->addChild('TaxOnSocialSecurityWages', $this->calcL5A2(NULL, NULL));
+			}
+		}
+		if ( isset( $this->l5b ) ) {
+			$xml->IRS941->addChild('TaxableSocialSecurityTips', $this->l5b);
+			if ( $this->calcL5B2(NULL, NULL) > 0 ) {
+				$xml->IRS941->addChild('TaxOnSocialSecurityTips', $this->calcL5B2(NULL, NULL));
+			}
+
+		}
+		if ( isset( $this->l5c ) ) {
+			$xml->IRS941->addChild('TaxableMedicareWagesTips', $this->l5c);
+			if ( $this->calcL5C2(NULL, NULL) > 0 ) {
+				$xml->IRS941->addChild('TaxOnMedicareWagesTips', $this->calcL5C2(NULL, NULL) );
+			}
+		}
+		if ( $this->calcL5D(NULL, NULL) > 0 ) {
+			$xml->IRS941->addChild('TotalSocialSecurityMedTaxes', $this->calcL5D(NULL, NULL) );
+			$xml->IRS941->addChild('WagesNotSubjToSSMedicareTaxes', 'X');
+		}
+		if ( $this->calcL6E(NULL, NULL) > 0 ) {
+			$xml->IRS941->addChild('TotalTaxesBeforeAdjustmentsAmt', $this->calcL6E(NULL, NULL) );
+		}
+		if ( isset( $this->l7 ) ) {
+			$xml->IRS941->addChild('FractionsOfCentsAdjustment', $this->l7 );
+		}
+		if ( isset( $this->l9 ) ) {
+			$xml->IRS941->addChild('TipsGroupTermLifeInsAdjAmount', $this->l9 );
+		}
+		if ( $this->calcL10(NULL, NULL) > 0 ) {
+			$xml->IRS941->addChild('TotalTax', $this->calcL10(NULL, NULL));
+		} else {
+			$xml->IRS941->addChild('TotalTax', 0.00);
+		}
+
+		$xml->IRS941->addChild('TotalDepositsOverpaymentForQtr', $this->l11);
+		if ( $this->calcL13(NULL, NULL) > 0 ) {
+			$xml->IRS941->addChild('PaymentCreditTotal', $this->calcL13(NULL, NULL));
+		} else {
+			$xml->IRS941->addChild('PaymentCreditTotal', 0.00);
+		}
+
+		if ( $this->calcL14(NULL, NULL) > 0 ) {
+			$xml->IRS941->addChild('BalanceDue', $this->calcL14(NULL, NULL));
+		} else {
+			$xml->IRS941->addChild('Overpayment');
+			if ( $this->calcL15(NULL, NULL) > 0 ) {
+				$xml->IRS941->Overpayment->addChild('Amount', $this->calcL15(NULL, NULL) );
+				$xml->IRS941->Overpayment->addChild('CreditElect', 'X');
+			} else {
+				$xml->IRS941->Overpayment->addChild('Amount', 0.00 );
+			}
+
+		}
+
+		if ( isset( $this->l16 ) ) {
+			$xml->IRS941->addChild('DepositStateCode', $this->l16 );
+		}
+
+		if ( is_array( $this->filterL16(NULL, NULL) ) ) {
+			$L16_ARR = $this->filterL16(NULL, NULL);
+			foreach( $L16_ARR as $l16 ) {
+				switch( $l16 ) {
+					case 'a':
+						$xml->IRS941->addChild('LessThan2500', 'X');
+						break;
+					case 'b':
+						$xml->IRS941->addChild('MonthlyDepositorGroup');
+						$xml->IRS941->MonthlyDepositorGroup->addChild('MonthlyScheduleDepositor', 'X');
+						if ( isset( $this->l16_month1 ) ) {
+							$xml->IRS941->MonthlyDepositorGroup->addChild('Month1Liability', $this->l16_month1);
+						}
+						if ( isset( $this->l16_month2 ) ){
+							$xml->IRS941->MonthlyDepositorGroup->addChild('Month2Liability', $this->l16_month2 );
+						}
+						if ( isset( $this->l16_month3 ) ){
+							$xml->IRS941->MonthlyDepositorGroup->addChild('Month3Liability', $this->l16_month3 );
+						}
+						if ( $this->calcL16MonthTotal(NULL, NULL) > 0 ) {
+							$xml->IRS941->MonthlyDepositorGroup->addChild('TotalQuarterLiability', $this->calcL16MonthTotal(NULL, NULL) );
+						}
+
+						break;
+					case 'c':
+						$xml->IRS941->addChild('SemiweeklyScheduleDepositor', 'X');
+						break;
+				}
+			}
+		}
+	}
 }
 ?>

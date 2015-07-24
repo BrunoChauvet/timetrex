@@ -1,7 +1,7 @@
 <?php
 /*********************************************************************************
  * TimeTrex is a Payroll and Time Management program developed by
- * TimeTrex Software Inc. Copyright (C) 2003 - 2013 TimeTrex Software Inc.
+ * TimeTrex Software Inc. Copyright (C) 2003 - 2014 TimeTrex Software Inc.
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License version 3 as published by
@@ -33,11 +33,7 @@
  * feasible for technical reasons, the Appropriate Legal Notices must display
  * the words "Powered by TimeTrex".
  ********************************************************************************/
-/*
- * $Revision: 1246 $
- * $Id: fix_mysql.php 1246 2007-09-14 23:47:42Z ipso $
- * $Date: 2007-09-14 16:47:42 -0700 (Fri, 14 Sep 2007) $
- */
+
 require_once( dirname(__FILE__) . DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR .'includes'. DIRECTORY_SEPARATOR .'global.inc.php');
 require_once( dirname(__FILE__) . DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR .'includes'. DIRECTORY_SEPARATOR .'CLI.inc.php');
 
@@ -49,33 +45,16 @@ if ( isset($argv[1]) AND in_array($argv[1], array('--help', '-help', '-h', '-?')
 	$last_arg = count($argv)-1;
 
 	if ( isset($db) AND is_object($db) AND strncmp($db->databaseType,'mysql',5) != 0 ) {
-		echo "This script must be run on MySQL only!";
+		echo "This script must be run on MySQL only!\n";
 		exit;
 	}
 
-	$dict = NewDataDictionary($db);
-	$tables = $dict->MetaTables();
-
-	$sequence_modifier = 1000;
-
-	$db->StartTrans();
-
-	$out = NULL;
-	foreach( $tables as $table ) {
-		if ( strpos($table, '_seq') !== FALSE ) {
-			//echo "Found Sequence Table: ". $table ."<br>\n";
-			$query = 'select id from '. $table;
-			$last_sequence_value = $db->GetOne($query) + $sequence_modifier;
-			$query = 'UPDATE '. $table .' set ID = '. $last_sequence_value ;
-			//echo "Query: ". $query ."\n";
-			$db->Query( $query );
-		}
-	}
-
+	$install_obj = new Install();
+	$install_obj->setDatabaseConnection( $db );
+	$install_obj->initializeSequences();
 	echo "Done.\n";
-
-	$db->CompleteTrans();
 }
 
 Debug::writeToLog();
+//Debug::Display();
 ?>
